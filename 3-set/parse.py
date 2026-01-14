@@ -7,10 +7,12 @@ runs_pd = pd.read_csv(f"{exp_name}.csv")
 run_dict = {}
 failed = 0
 success = 0
+cnt = 0
 for (sum, name) in zip(runs_pd["summary"], runs_pd["name"]):
     sum_dict = eval(sum)
-    print(sum_dict)
-    exit()
+    # print(sum_dict.keys())
+    cnt += 1
+    # exit()
     try:
         if exp_name == 'rebuttal_set_temp_old':
             if sum_dict['step'] != 9999:
@@ -31,4 +33,4 @@ for (sum, name) in zip(runs_pd["summary"], runs_pd["name"]):
         print(f"Summary keys: {sum_dict.keys()}")
 
 json.dump(run_dict, open(f"{exp_name}.json", "w"), indent=2)
-print(f"Successful parses: {success}, Failed parses: {failed}, length of run_dict: {len(run_dict)}")
+print(f"Total {cnt}. Successful parses: {success}, Failed parses: {failed}, length of run_dict: {len(run_dict)}")
