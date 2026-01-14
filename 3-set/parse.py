@@ -21,7 +21,9 @@ for (sum, name) in zip(runs_pd["summary"], runs_pd["name"]):
                 continue
             if sum_dict['use_alpha_scheduler'] != True:
                 continue
-            if sum_dict['use_grad_clip'] != True:
+            if sum_dict['use_grad_clip'] != False:
+                continue
+            if sum_dict['reward_temp'] != 1:
                 continue
             # if sum_dict['fl'] != True:
             #     continue
