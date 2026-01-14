@@ -1,0 +1,34 @@
+import pandas as pd
+import json
+
+exp_name = 'rebuttal_set_temp_old'
+
+runs_pd = pd.read_csv(f"{exp_name}.csv")
+run_dict = {}
+failed = 0
+success = 0
+for (sum, name) in zip(runs_pd["summary"], runs_pd["name"]):
+    sum_dict = eval(sum)
+    print(sum_dict)
+    exit()
+    try:
+        if exp_name == 'rebuttal_set_temp_old':
+            if sum_dict['step'] != 9999:
+                continue
+            if sum_dict['training_mode'] != 'online':
+                continue
+            if sum_dict['use_alpha_scheduler'] != True:
+                continue
+            if sum_dict['use_grad_clip'] != True:
+                continue
+            # if sum_dict['fl'] != True:
+            #     continue
+        run_dict[name] = sum_dict
+        success += 1
+    except KeyError as e:
+        failed += 1
+        print(f"KeyError for run {name}: {e}")
+        print(f"Summary keys: {sum_dict.keys()}")
+
+json.dump(run_dict, open(f"{exp_name}.json", "w"), indent=2)
+print(f"Successful parses: {success}, Failed parses: {failed}, length of run_dict: {len(run_dict)}")
