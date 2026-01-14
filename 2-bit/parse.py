@@ -57,7 +57,7 @@ def d2():
     print(f"Total {cnt}. Successful parses: {success}, Failed parses: {failed}, length of run_dict: {len(run_dict)}")
 
 def d3():
-    exp_name = 'bit-old'
+    exp_name = 'refactored_alpha_gfn_bitseq'
 
     runs_pd = pd.read_csv(f"{exp_name}.csv")
     run_dict = {}
