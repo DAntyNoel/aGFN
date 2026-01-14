@@ -139,8 +139,8 @@ def d4():
                     continue
                 if sum_dict['reward_temp'] != 1:
                     continue
-                if sum_dict['fl'] != False:
-                    continue
+                # if sum_dict['fl'] != False:
+                #     continue
             run_dict[name] = sum_dict
             success += 1
         except KeyError as e:
