@@ -1,0 +1,37 @@
+\begin{table}[t]
+% \vspace{-3\baselineskip}
+\caption{Results on Set Generation. $\alpha$-GFNs perform better at reward and modes across all settings.}
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{\hspace{.6em}}clcccccc@{\hspace{.6em}}}
+\toprule
+\multicolumn{2}{c}{} &
+\multicolumn{2}{c}{\textbf{DB}} &
+\multicolumn{2}{c}{\textbf{FL-DB}} &
+\multicolumn{2}{c}{\textbf{TB}} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+\textbf{Set Size} & \textbf{Metric} & Baseline & Ours & Baseline & Ours & Baseline & Ours \\
+\midrule
+\multirow{3}{*}{Small}
+& Modes$\uparrow$              & \msl{26.6}{3.5}     & \msl{\textbf{51.1}}{8.8}   & \msl{83.1}{1.9}     & \msl{\textbf{88.5}}{2.7}   & \msl{23.2}{5.9}     & \msl{\textbf{26.8}}{5.6} \\
+& Top-1000 Reward$\uparrow$    & \msl{0.184}{0.001}  & \msl{\textbf{0.203}}{0.004}& \msl{0.218}{0.001}  & \msl{\textbf{0.220}}{0.002}& \msl{0.180}{0.001}  & \msl{\textbf{0.184}}{0.001} \\
+& Spearman Corr                & \msl{0.998}{0.001}  & \msl{0.995}{0.001}         & \msl{0.989}{0.004}  & \msl{0.976}{0.006}         & \msl{1.000}{0.000}  & \msl{1.000}{0.000} \\
+\cmidrule(lr){1-8}
+\multirow{3}{*}{Medium}
+& Modes$\uparrow$              & \msl{0.0}{0.0}      & \msl{\textbf{79.5}}{105.61}  & \msl{9.0}{5.57}      & \msl{\textbf{255.6}}{249.8}& \msl{0.0}{0.0}      & \msl{\textbf{380.2}}{469.2} \\
+& Top-1000 Reward$\uparrow$    & \msl{113916}{7869} & \msl{\textbf{575348}}{65238}& \msl{498434}{26370}& \msl{\textbf{665591}}{42842}& \msl{44847}{1539}  & \msl{\textbf{668396}}{74759} \\
+& Spearman Corr                & \msl{0.994}{0.002}  & \msl{0.977}{0.004}         & \msl{0.971}{0.007}  & \msl{0.946}{0.010}         & \msl{0.998}{0.000}  & \msl{0.906}{0.268} \\
+\cmidrule(lr){1-8}
+\multirow{3}{*}{Large}
+& Modes$\uparrow$              & \msl{0.0}{0.0}      & \msl{\textbf{215.0}}{183.1}& \msl{223.9}{101.6}  & \msl{\textbf{2475.4}}{721.8}& \msl{0.0}{0.0}      & \msl{\textbf{431.0}}{352.8} \\
+& Top-1000 Reward$\uparrow$    & \msl{54440}{3964}   & \msl{\textbf{580376}}{72592}& \msl{600956}{31384} & \msl{\textbf{775196}}{18595}& \msl{11318}{394}    & \msl{\textbf{636234}}{63003} \\
+& Spearman Corr                & \msl{0.979}{0.010}  & \msl{0.945}{0.010}         & \msl{0.886}{0.017}  & \msl{0.848}{0.020}         & \msl{0.996}{0.000}  & \msl{0.996}{0.001} \\
+\bottomrule
+\end{tabular}
+}% end resizebox
+\label{tab:set-exp-results}
+\vspace{-1.5\baselineskip}
+\end{table}
