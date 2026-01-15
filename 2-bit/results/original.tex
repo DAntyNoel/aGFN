@@ -1,0 +1,34 @@
+
+\begin{table}[htbp]
+\caption{Results on Bit Sequence Generation. In terms of number of modes on average, $\alpha$-GFN objectives outperform vanilla GFlowNet objectives across 87\% task settings.}
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\resizebox{0.9\linewidth}{!}{%
+\begin{tabular}{llcccccc}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{2}{c}{\textbf{DB}} & \multicolumn{2}{c}{\textbf{SubTB($\lambda$)}} & \multicolumn{2}{c}{\textbf{TB}} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
+\textbf{k} & \textbf{Metric} & Baseline & Ours & Baseline & Ours & Baseline & Ours \\
+\midrule
+\multirow{2}{*}{2} &  Modes & \msl{0.60}{0.89} & \msl{\textbf{2.60}}{2.07} & \msl{\textbf{22.80}}{13.27} & \msl{20.80}{11.39} & \msl{12.20}{2.39} & \msl{\textbf{16.80}}{3.77} \\
+&  Spearman & \msl{0.32}{0.43} & \msl{0.50}{0.04} & \msl{0.47}{0.06} & \msl{0.51}{0.19} & \msl{0.47}{0.17} & \msl{0.54}{0.00} \\
+\midrule
+\multirow{2}{*}{4} &  Modes & \msl{9.80}{6.50} & \msl{\textbf{12.00}}{1.58} & \msl{35.40}{4.16} & \msl{\textbf{40.40}}{2.97} & \msl{38.00}{2.74} & \msl{\textbf{41.80}}{5.07} \\
+&  Spearman & \msl{0.58}{0.00} & \msl{0.57}{0.00} & \msl{0.58}{0.00} & \msl{0.60}{0.02} & \msl{0.58}{0.00} & \msl{0.58}{0.00} \\
+\midrule
+\multirow{2}{*}{6} &  Modes & \msl{4.20}{1.92} & \msl{\textbf{5.20}}{1.30} & \msl{20.60}{3.36} & \msl{\textbf{22.20}}{7.33} & \msl{21.60}{2.70} & \msl{\textbf{23.40}}{3.71} \\
+&  Spearman & \msl{0.55}{0.01} & \msl{0.56}{0.00} & \msl{0.55}{0.00} & \msl{0.59}{0.09} & \msl{0.56}{0.00} & \msl{0.56}{0.00} \\
+\midrule
+\multirow{2}{*}{8} &  Modes & \msl{36.40}{1.82} & \msl{\textbf{44.40}}{3.78} & \msl{58.60}{1.67} & \msl{\textbf{58.60}}{0.89} & \msl{58.80}{1.30} & \msl{\textbf{59.00}}{0.00} \\
+&  Spearman & \msl{0.79}{0.00} & \msl{0.79}{0.00} & \msl{0.81}{0.00} & \msl{0.81}{0.00} & \msl{0.81}{0.00} & \msl{0.81}{0.00} \\
+\midrule
+\multirow{2}{*}{10} &  Modes & \msl{6.80}{2.05} & \msl{\textbf{8.20}}{2.39} & \msl{19.20}{4.92} & \msl{\textbf{21.60}}{3.05} & \msl{\textbf{24.40}}{3.36} & \msl{23.80}{1.79} \\
+&  Spearman & \msl{0.57}{0.01} & \msl{0.57}{0.00} & \msl{0.57}{0.00} & \msl{0.57}{0.00} & \msl{0.57}{0.00} & \msl{0.57}{0.00} \\
+\bottomrule
+\end{tabular}
+}% end resizebox
+\label{tab:bit-exp-results}
+% \vspace{-1.5\baselineskip}
+\end{table}
