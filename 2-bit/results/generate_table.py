@@ -109,13 +109,12 @@ for idx, k in enumerate(k_values):
     if ('fl-subtb', k) in data_dict:
         baseline_m = float(data_dict[('fl-subtb', k)]['baseline']['modes_mean']) if data_dict[('fl-subtb', k)]['baseline'] is not None else 0
         ours_m = float(data_dict[('fl-subtb', k)]['ours']['modes_mean'])
-        is_baseline_max = baseline_m >= ours_m
         
         if data_dict[('fl-subtb', k)]['baseline'] is not None:
             row = data_dict[('fl-subtb', k)]['baseline']
             m = float(row['modes_mean'])
             s = float(row['modes_std'])
-            if is_baseline_max:
+            if baseline_m > ours_m:
                 print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
             else:
                 print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
@@ -123,7 +122,7 @@ for idx, k in enumerate(k_values):
         row = data_dict[('fl-subtb', k)]['ours']
         m = float(row['modes_mean'])
         s = float(row['modes_std'])
-        if not is_baseline_max:
+        if not baseline_m > ours_m:
             print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
         else:
             print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
