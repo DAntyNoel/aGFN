@@ -1,0 +1,47 @@
+
+source_file                   method     size    reward_temp
+rebuttal_set_temp_fixed.json  db_gfn     large   0.5            8
+                                                 2.0            2
+                                         medium  0.5            4
+                                                 2.0            6
+                                         small   0.5            4
+                                                 2.0            6
+                              fl_db_gfn  large   0.5            4
+                                                 2.0            6
+                                         medium  0.5            7
+                                                 2.0            3
+                                         small   0.5            4
+                                                 2.0            6
+                              tb_gfn     large   0.5            5
+                                                 2.0            5
+                                         medium  0.5            7
+                                                 2.0            3
+                                         small   0.5            3
+                                                 2.0            7
+rebuttal_set_temp_old.json    db_gfn     large   0.5            3
+                                                 1.0            2
+                                                 2.0            5
+                                         medium  0.5            4
+                                                 1.0            4
+                                                 2.0            2
+                                         small   0.5            5
+                                                 1.0            4
+                                                 2.0            1
+                              fl_db_gfn  large   0.5            4
+                                                 1.0            3
+                                                 2.0            3
+                                         medium  0.5            3
+                                                 2.0            7
+                                         small   0.5            4
+                                                 1.0            5
+                                                 2.0            1
+                              tb_gfn     large   0.5            6
+                                                 1.0            2
+                                                 2.0            2
+                                         medium  0.5            4
+                                                 1.0            5
+                                                 2.0            1
+                                         small   0.5            3
+                                                 1.0            4
+                                                 2.0            3
+dtype: int64

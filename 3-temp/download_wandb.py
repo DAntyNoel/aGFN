@@ -59,5 +59,5 @@ def d2():
     runs_df.to_csv("rebuttal_set_temp_old.csv")
 
 if __name__ == '__main__':
-    # d1()
+    d1()
     d2()

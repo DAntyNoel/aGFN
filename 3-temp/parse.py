@@ -27,8 +27,8 @@ def d1():
                 #     continue
                 # if sum_dict['reward_temp'] != 1:
                 #     continue
-                if sum_dict['fl'] != True:
-                    continue
+                # if sum_dict['fl'] != True:
+                #     continue
             run_dict[name] = sum_dict
             success += 1
         except KeyError as e:
@@ -62,8 +62,8 @@ def d2():
                 #     continue
                 # if sum_dict['use_grad_clip'] != False:
                 #     continue
-                if sum_dict['reward_temp'] != 1:
-                    continue
+                # if sum_dict['reward_temp'] != 1:
+                #     continue
                 # if sum_dict['fl'] != True:
                 #     continue
             run_dict[name] = sum_dict
@@ -78,5 +78,5 @@ def d2():
 
 
 if __name__ == '__main__':
-    # d1()
+    d1()
     d2()
