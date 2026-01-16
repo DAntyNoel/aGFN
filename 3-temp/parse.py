@@ -29,6 +29,7 @@ def d1():
                 #     continue
                 # if sum_dict['fl'] != True:
                 #     continue
+                name += f"_rt({sum_dict['reward_temp']})"
             run_dict[name] = sum_dict
             success += 1
         except KeyError as e:
@@ -66,6 +67,7 @@ def d2():
                 #     continue
                 # if sum_dict['fl'] != True:
                 #     continue
+                name += f"_rt({sum_dict['reward_temp']})"
             run_dict[name] = sum_dict
             success += 1
         except KeyError as e:
