@@ -24,17 +24,20 @@ def parse_exp_name(name):
 
 y_key="forward_policy_entropy_eval"
 y_name="Avg Forward Policy Entropy"
-# y_key="spearman_corr_test"
-# y_name="Avg Spearman Correlation"
+y_key="spearman_corr_test"
+y_name="Avg Spearman Correlation"
 if not os.path.exists(y_key):
     os.makedirs(y_key)
 
 # === 聚合数据 ===
-for method,fl in [("subtb_gfn", False)]:
+for method,fl in [("subtb_gfn", False), ("subtb_gfn", True)]:
     groups = defaultdict(list)
+    
+    # fl=True 时使用 medium size，fl=False 时使用 large size
+    target_size = 'medium' if fl else 'large'
 
     for exp_name, record in data.items():
-        if record["method"] == method and record["size"] == 'large' and record["fl"] == fl:
+        if record["method"] == method and record["size"] == target_size and record["fl"] == fl:
             alpha = record["alpha_init"]
             if 0.4 <= alpha <= 0.9:
                 steps = record["step"]
@@ -49,11 +52,12 @@ for method,fl in [("subtb_gfn", False)]:
 
     # 如果该方法没有数据，跳过
     if not mean_results:
+        print(f"WARNING: No data found for method={method}, fl={fl}. Skipping...")
         continue
 
     # steps = record["step"]  # 假设所有实验的 step 相同
     # 1) 计算均值之后 & 使用前：把 steps 与曲线都截到 9k
-    steps_data = [record["step"] for record in data.values() if record["method"] == method and record["size"] == 'large' and record["fl"] == fl]
+    steps_data = [record["step"] for record in data.values() if record["method"] == method and record["size"] == target_size and record["fl"] == fl]
     if steps_data:
         steps_sample = steps_data[0]
         if isinstance(steps_sample, list):
@@ -85,8 +89,10 @@ for method,fl in [("subtb_gfn", False)]:
     # —— 生成曲线略 —— #
     # 标题：用 Unicode 而不是 MathJax，保证能控制字号
     def method_title(method, fl):
-        if method == "subtb_gfn":
+        if method == "subtb_gfn" and not fl:
             return "SubTB"
+        elif method == "subtb_gfn" and fl:
+            return "FL-SubTB"
         elif method == "tb_gfn":
             return "TB"
         elif method == "db_gfn" and not fl:
@@ -161,3 +167,4 @@ for method,fl in [("subtb_gfn", False)]:
 
     pio.write_image(fig, f'{y_key}/{method}-fl_{int(fl)}.pdf',
                     format='pdf', width=800, height=600, scale=2)
+    print(f"Saved {y_key}/{method}-fl_{int(fl)}.pdf")
