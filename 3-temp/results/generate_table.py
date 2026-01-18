@@ -32,7 +32,7 @@ metrics = [
     (
         "mean_top_1000_similarity_mean",
         "mean_top_1000_similarity_std",
-        "Top-1000 Sim.$\\uparrow$",
+        "Top-1000 Sim.$\\downarrow$",
         lambda v: f"{v:.3f}",
         True,
     ),
