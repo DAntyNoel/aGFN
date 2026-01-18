@@ -23,12 +23,12 @@ method_labels = [method_alias[m] for m in available_methods]
 
 df['method_alias'] = df['method'].map(method_alias)
 
-# 指定 metric 列及其格式化方式
+# 指定 metric 列及其格式化方式: (mean_col, std_col, label, formatter, highlight_mean, lower_is_better)
 metrics = [
-    ('modes_mean', 'modes_std', 'Modes$\\uparrow$', lambda v: f"{v:.1f}"),
-    ('mean_top_1000_R_mean', 'mean_top_1000_R_std', 'Top-1000 Reward$\\uparrow$', None),
-    ('mean_top_1000_similarity_mean', 'mean_top_1000_similarity_std', 'Top-1000 Sim.$\\uparrow$', lambda v: f"{v:.3f}"),
-    ('spearman_corr_test_mean', 'spearman_corr_test_std', 'Spearman Corr', lambda v: f"{v:.3f}"),
+    ('modes_mean', 'modes_std', 'Modes$\\uparrow$', lambda v: f"{v:.1f}", True, False),
+    ('mean_top_1000_R_mean', 'mean_top_1000_R_std', 'Top-1000 Reward$\\uparrow$', None, True, False),
+    ('mean_top_1000_similarity_mean', 'mean_top_1000_similarity_std', 'Top-1000 Sim.$\\downarrow$', lambda v: f"{v:.3f}", True, True),
+    ('spearman_corr_test_mean', 'spearman_corr_test_std', 'Spearman Corr', lambda v: f"{v:.3f}", False, False),
 ]
 
 
@@ -43,6 +43,14 @@ def fmt_value(val: float, formatter):
     if formatter is None:
         return fmt_reward(val)
     return formatter(val)
+
+
+def fmt_cell(val: float, std: float, formatter, highlight: bool) -> str:
+    """Format mean/std pair with optional bold on mean."""
+    mean_str = fmt_value(val, formatter)
+    std_str = fmt_value(std, formatter)
+    mean_fmt = f"\\textbf{{{mean_str}}}" if highlight and mean_str else mean_str
+    return f"\\msl{{{mean_fmt}}}{{{std_str}}}"
 
 
 # 按 size 和 method 找到 baseline (alpha=0.5) 和 ours (最高 modes)
@@ -107,7 +115,7 @@ print("\\midrule")
 
 for idx, size in enumerate(size_values):
     size_label = size.capitalize()
-    for metric_idx, (mean_col, std_col, metric_label, formatter) in enumerate(metrics):
+    for metric_idx, (mean_col, std_col, metric_label, formatter, highlight_mean, lower_is_better) in enumerate(metrics):
         row_prefix = f"\\multirow{{{len(metrics)}}}{{*}}{{{size_label}}} " if metric_idx == 0 else ""
         if metric_idx == 0:
             print(f"{row_prefix}\n& {metric_label}", end="")
@@ -123,16 +131,18 @@ for idx, size in enumerate(size_values):
             baseline = data_dict[key]['baseline']
             ours = data_dict[key]['ours']
 
-            if baseline is not None and not pd.isna(baseline[mean_col]):
-                bm = fmt_value(float(baseline[mean_col]), formatter)
-                bs = fmt_value(float(baseline[std_col]), formatter)
-                print(f" & \\msl{{{bm}}}{{{bs}}}", end="")
+            baseline_mean = float(baseline[mean_col]) if baseline is not None else float('nan')
+            ours_mean = float(ours[mean_col])
+            best_mean = min(baseline_mean, ours_mean) if lower_is_better else max(baseline_mean, ours_mean)
+
+            if baseline is not None and not pd.isna(baseline_mean):
+                bm = fmt_cell(baseline_mean, float(baseline[std_col]), formatter, highlight=highlight_mean and baseline_mean == best_mean)
+                print(f" & {bm}", end="")
             else:
                 print(" & ", end="")
 
-            om = fmt_value(float(ours[mean_col]), formatter)
-            os = fmt_value(float(ours[std_col]), formatter)
-            print(f" & \\msl{{\\textbf{{{om}}}}}{{{os}}}", end="")
+            om = fmt_cell(ours_mean, float(ours[std_col]), formatter, highlight=highlight_mean and (pd.isna(baseline_mean) or ours_mean == best_mean))
+            print(f" & {om}", end="")
 
         if metric_idx == len(metrics) - 1 and idx < len(size_values) - 1:
             print(" \\\\")
