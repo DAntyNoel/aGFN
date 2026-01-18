@@ -25,18 +25,19 @@ method_labels = [method_alias[m] for m in available_methods]
 
 df["method_alias"] = df["method"].map(method_alias)
 
-# Metric columns: (mean, std, label, formatter, highlight_mean)
+# Metric columns: (mean, std, label, formatter, highlight_mean, lower_is_better)
 metrics = [
-    ("modes_mean", "modes_std", "Modes$\\uparrow$", lambda v: f"{v:.1f}", True),
-    ("mean_top_1000_R_mean", "mean_top_1000_R_std", "Top-1000 Reward$\\uparrow$", None, True),
+    ("modes_mean", "modes_std", "Modes$\\uparrow$", lambda v: f"{v:.1f}", True, False),
+    ("mean_top_1000_R_mean", "mean_top_1000_R_std", "Top-1000 Reward$\\uparrow$", None, True, False),
     (
         "mean_top_1000_similarity_mean",
         "mean_top_1000_similarity_std",
         "Top-1000 Sim.$\\downarrow$",
         lambda v: f"{v:.3f}",
         True,
+        True,
     ),
-    ("spearman_corr_test_mean", "spearman_corr_test_std", "Spearman Corr", lambda v: f"{v:.3f}", False),
+    ("spearman_corr_test_mean", "spearman_corr_test_std", "Spearman Corr", lambda v: f"{v:.3f}", False, False),
 ]
 
 
@@ -154,7 +155,7 @@ for temp_idx, temp in enumerate(reward_temps):
 
     for size_idx, size in enumerate(temp_subset_sizes):
         size_label = size.capitalize()
-        for metric_idx, (mean_col, std_col, metric_label, formatter, highlight_mean) in enumerate(metrics):
+        for metric_idx, (mean_col, std_col, metric_label, formatter, highlight_mean, lower_is_better) in enumerate(metrics):
             temp_cell = f"\\multirow{{{temp_rows}}}{{*}}{{{temp}}}" if not temp_printed else ""
             if temp_cell:
                 temp_printed = True
@@ -172,10 +173,10 @@ for temp_idx, temp in enumerate(reward_temps):
                 baseline = data_dict[key]["baseline"]
                 ours = data_dict[key]["ours"]
 
-                # Determine which value to highlight (higher-is-better for all metrics here)
+                # Determine which value to highlight (direction depends on metric)
                 baseline_mean = float(baseline[mean_col]) if baseline is not None else float("nan")
                 ours_mean = float(ours[mean_col])
-                best_mean = max(baseline_mean, ours_mean)
+                best_mean = min(baseline_mean, ours_mean) if lower_is_better else max(baseline_mean, ours_mean)
 
                 if baseline is not None and not pd.isna(baseline_mean):
                     row_cells.append(
