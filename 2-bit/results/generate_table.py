@@ -36,7 +36,7 @@ print("\\renewcommand{\\arraystretch}{1.2}")
 print("\\resizebox{0.99\\linewidth}{!}{%")
 print("\\begin{tabular}{llcccccccccc}")
 print("\\toprule")
-print("\\multicolumn{1}{c}{} & \\multicolumn{1}{c}{} & \\multicolumn{2}{c}{\\textbf{DB}} & \\multicolumn{2}{c}{\\textbf{SubTB($\\lambda$)}} & \\multicolumn{2}{c}{\\textbf{TB}} & \\multicolumn{2}{c}{\\textbf{FL-DB}} & \\multicolumn{2}{c}{\\textbf{FL-SubTB}} \\\\")
+print("\\multicolumn{1}{c}{} & \\multicolumn{1}{c}{} & \\multicolumn{2}{c}{\\textbf{DB}} & \\multicolumn{2}{c}{\\textbf{FL-DB}} & \\multicolumn{2}{c}{\\textbf{SubTB($\\lambda$)}} & \\multicolumn{2}{c}{\\textbf{FL-SubTB($\\lambda$)}} & \\multicolumn{2}{c}{\\textbf{TB}} \\\\")
 print("\\cmidrule(lr){3-4}\\cmidrule(lr){5-6}\\cmidrule(lr){7-8}\\cmidrule(lr){9-10}\\cmidrule(lr){11-12}")
 print("\\textbf{k} & \\textbf{Metric} & Baseline & Ours & Baseline & Ours & Baseline & Ours & Baseline & Ours & Baseline & Ours \\\\")
 print("\\midrule")
@@ -57,7 +57,19 @@ for idx, k in enumerate(k_values):
         m = float(row['modes_mean'])
         s = float(row['modes_std'])
         print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
-    
+
+    # FL-DB
+    if ('fl-db', k) in data_dict:
+        if data_dict[('fl-db', k)]['baseline'] is not None:
+            row = data_dict[('fl-db', k)]['baseline']
+            m = float(row['modes_mean'])
+            s = float(row['modes_std'])
+            print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
+        row = data_dict[('fl-db', k)]['ours']
+        m = float(row['modes_mean'])
+        s = float(row['modes_std'])
+        print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
+
     # SubTB
     if ('subtb', k) in data_dict:
         baseline_m = float(data_dict[('subtb', k)]['baseline']['modes_mean']) if data_dict[('subtb', k)]['baseline'] is not None else 0
@@ -80,31 +92,7 @@ for idx, k in enumerate(k_values):
             print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
         else:
             print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-    
-    # TB
-    if ('tb', k) in data_dict:
-        if data_dict[('tb', k)]['baseline'] is not None:
-            row = data_dict[('tb', k)]['baseline']
-            m = float(row['modes_mean'])
-            s = float(row['modes_std'])
-            print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-        row = data_dict[('tb', k)]['ours']
-        m = float(row['modes_mean'])
-        s = float(row['modes_std'])
-        print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
-    
-    # FL-DB
-    if ('fl-db', k) in data_dict:
-        if data_dict[('fl-db', k)]['baseline'] is not None:
-            row = data_dict[('fl-db', k)]['baseline']
-            m = float(row['modes_mean'])
-            s = float(row['modes_std'])
-            print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-        row = data_dict[('fl-db', k)]['ours']
-        m = float(row['modes_mean'])
-        s = float(row['modes_std'])
-        print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
-    
+
     # FL-SubTB
     if ('fl-subtb', k) in data_dict:
         baseline_m = float(data_dict[('fl-subtb', k)]['baseline']['modes_mean']) if data_dict[('fl-subtb', k)]['baseline'] is not None else 0
@@ -126,6 +114,18 @@ for idx, k in enumerate(k_values):
             print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
         else:
             print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
+
+    # TB
+    if ('tb', k) in data_dict:
+        if data_dict[('tb', k)]['baseline'] is not None:
+            row = data_dict[('tb', k)]['baseline']
+            m = float(row['modes_mean'])
+            s = float(row['modes_std'])
+            print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
+        row = data_dict[('tb', k)]['ours']
+        m = float(row['modes_mean'])
+        s = float(row['modes_std'])
+        print(f" & \\msl{{\\textbf{{{m:.2f}}}}}{{{s:.2f}}}", end="")
     
     print(" \\\\")
     
@@ -143,31 +143,7 @@ for idx, k in enumerate(k_values):
         m = float(row['spearman_corr_test_mean'])
         s = float(row['spearman_corr_test_std'])
         print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-    
-    # SubTB
-    if ('subtb', k) in data_dict:
-        if data_dict[('subtb', k)]['baseline'] is not None:
-            row = data_dict[('subtb', k)]['baseline']
-            m = float(row['spearman_corr_test_mean'])
-            s = float(row['spearman_corr_test_std'])
-            print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-        row = data_dict[('subtb', k)]['ours']
-        m = float(row['spearman_corr_test_mean'])
-        s = float(row['spearman_corr_test_std'])
-        print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-    
-    # TB
-    if ('tb', k) in data_dict:
-        if data_dict[('tb', k)]['baseline'] is not None:
-            row = data_dict[('tb', k)]['baseline']
-            m = float(row['spearman_corr_test_mean'])
-            s = float(row['spearman_corr_test_std'])
-            print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-        row = data_dict[('tb', k)]['ours']
-        m = float(row['spearman_corr_test_mean'])
-        s = float(row['spearman_corr_test_std'])
-        print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-    
+
     # FL-DB
     if ('fl-db', k) in data_dict:
         if data_dict[('fl-db', k)]['baseline'] is not None:
@@ -179,7 +155,19 @@ for idx, k in enumerate(k_values):
         m = float(row['spearman_corr_test_mean'])
         s = float(row['spearman_corr_test_std'])
         print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
-    
+
+    # SubTB
+    if ('subtb', k) in data_dict:
+        if data_dict[('subtb', k)]['baseline'] is not None:
+            row = data_dict[('subtb', k)]['baseline']
+            m = float(row['spearman_corr_test_mean'])
+            s = float(row['spearman_corr_test_std'])
+            print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
+        row = data_dict[('subtb', k)]['ours']
+        m = float(row['spearman_corr_test_mean'])
+        s = float(row['spearman_corr_test_std'])
+        print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
+
     # FL-SubTB
     if ('fl-subtb', k) in data_dict:
         if data_dict[('fl-subtb', k)]['baseline'] is not None:
@@ -188,6 +176,18 @@ for idx, k in enumerate(k_values):
             s = float(row['spearman_corr_test_std'])
             print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
         row = data_dict[('fl-subtb', k)]['ours']
+        m = float(row['spearman_corr_test_mean'])
+        s = float(row['spearman_corr_test_std'])
+        print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
+
+    # TB
+    if ('tb', k) in data_dict:
+        if data_dict[('tb', k)]['baseline'] is not None:
+            row = data_dict[('tb', k)]['baseline']
+            m = float(row['spearman_corr_test_mean'])
+            s = float(row['spearman_corr_test_std'])
+            print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
+        row = data_dict[('tb', k)]['ours']
         m = float(row['spearman_corr_test_mean'])
         s = float(row['spearman_corr_test_std'])
         print(f" & \\msl{{{m:.2f}}}{{{s:.2f}}}", end="")
