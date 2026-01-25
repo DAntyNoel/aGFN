@@ -478,53 +478,175 @@ def summary_mols(csv_path: str, target='modes', methods_order=None, T=True):
 #     except Exception as e:
 #         print(f"PDF export failed: {e}")
 
-def plot_alpha_compare_large(set_csv_path='set.csv', png_out='alpha_compare_large.png', pdf_out='alpha_compare_large.pdf',annotate='ratio',annotate_decimals=2):
+def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_path='set_run_summary_with_history.json', png_out='alpha_compare_large.png', pdf_out='alpha_compare_large.pdf', annotate='ratio', annotate_decimals=2, img_width=650, img_height=420):
     """
     Plotly grouped bar chart on large set comparing two alphas per objective
       - db: 0.5 (Equal Weight) vs 0.9 (Mixed)
       - fl-db: 0.5 (Equal Weight) vs 0.9 (Mixed)
       - tb: 0.5 (Equal Weight) vs 0.7 (Mixed)
+      - subtb: 0.5 (Equal Weight) vs 0.9 (Mixed)  [新增]
     Bars show mean of mean_top_1000_R, with line error bars = std across runs.
     Legend only: 'Equal Weight' vs 'Mixed'. No bar text or alpha labels on the plot.
 
     Saves only static images (PNG and PDF) using plotly's static image export.
     """
     import ast
+    import json
     import numpy as np
     import pandas as pd
     import plotly.graph_objects as go
     import plotly.io as pio
 
-    # Load & filter
-    df = pd.read_csv(set_csv_path)
-    df = df[df['summary'].apply(lambda x: ast.literal_eval(x).get('step', None) == 9999)]
-    df = df[df['summary'].apply(lambda x: ast.literal_eval(x).get('size', None) == 'large')]
-
-    # Parse fields
-    df['parsed'] = df['summary'].apply(parse_summary)
-    df['alpha'] = df['parsed'].apply(lambda x: x.get('alpha_init', None))
-    # df['mean_top_1000_R'] = df['parsed'].apply(lambda x: x.get('mean_top_1000_R', None))
-    df['mean_top_1000_R'] = df['parsed'].apply(lambda x: x.get('mean_R', None))
-
-    def _get_method(summary):
-        method = summary.get('method', None)
-        if method == 'db_gfn' and summary.get('fl', False):
-            return 'fl_db_gfn'
-        return method
-
-    df['method'] = df['parsed'].apply(_get_method)
-    method_to_obj = {'db_gfn': 'db', 'fl_db_gfn': 'fl-db', 'tb_gfn': 'tb'}
-    df['objective'] = df['method'].map(method_to_obj)
-
-    # Keep only needed objectives & alphas
-    df = df[df['objective'].isin(['db', 'fl-db', 'tb'])]
+    # Load main objectives (db, fl-db, tb) from rebuttal_set_temp_old.json
     chosen = {'db': {"eq": 0.5, "mix": 0.9}, 'fl-db': {"eq": 0.5, "mix": 0.9}, 'tb': {"eq": 0.5, "mix": 0.7}}
-    df = df[df.apply(lambda r: r['alpha'] in [chosen.get(r['objective'], {}).get('eq'), chosen.get(r['objective'], {}).get('mix')], axis=1)]
+    agg_list = []
+    try:
+        import re
+        with open(main_json_path, 'r', encoding='utf-8') as f:
+            main_json = json.load(f)
 
-    # Aggregate mean and std per (objective, alpha)
-    agg = df.groupby(['objective', 'alpha'])['mean_top_1000_R'].agg(['mean', 'std']).reset_index()
+        rows = []
+        for run_id, run_data in main_json.items():
+            size_match = re.search(r'sz\(([^)]+)\)', run_id)
+            size = size_match.group(1) if size_match else run_data.get('size')
+            if size != 'large':
+                continue  # keep parity with previous large-only CSV filter
 
-    objectives = ['db', 'fl-db', 'tb']
+            m_match = re.search(r'_m\(([^)]+)\)', run_id)
+            method_val = m_match.group(1) if m_match else run_data.get('method')
+            if method_val is None:
+                continue
+
+            mean_R = run_data.get('mean_R')
+            if isinstance(mean_R, list) and len(mean_R) > 0:
+                mean_R = mean_R[-1]
+
+            rows.append({
+                'run_id': run_id,
+                'alpha': run_data.get('alpha_init'),
+                'method': method_val,
+                'mean_R': mean_R,
+            })
+
+        if rows:
+            df_main = pd.DataFrame(rows)
+            method_to_obj = {'db_gfn': 'db', 'fl_db_gfn': 'fl-db', 'tb_gfn': 'tb'}
+            df_main['objective'] = df_main['method'].map(method_to_obj)
+            df_main = df_main.dropna(subset=['objective', 'mean_R'])
+
+            df_main = df_main[df_main.apply(lambda r: r['alpha'] in [chosen.get(r['objective'], {}).get('eq'), chosen.get(r['objective'], {}).get('mix')], axis=1)]
+
+            agg_main = df_main.groupby(['objective', 'alpha'])['mean_R'].agg(['mean', 'std']).reset_index()
+            agg_main.columns = ['objective', 'alpha', 'mean', 'std']
+            agg_list.append(agg_main)
+    except Exception as e:
+        print(f"Warning: Could not load main JSON data: {e}")
+        import traceback
+        traceback.print_exc()
+
+    # Load & process JSON data for new objectives (subtb, fl-subtb) parsed from run_id
+    try:
+        import re
+        with open(json_path, 'r', encoding='utf-8') as f:
+            json_data = json.load(f)
+        
+        json_list = []
+        for run_id, run_data in json_data.items():
+            # Extract size from run_id (e.g., "sz(large)" in key name)
+            size_match = re.search(r'sz\(([^)]+)\)', run_id)
+            size = size_match.group(1) if size_match else None
+
+            # Extract method hint from run_id, fallback to payload
+            method_hint = None
+            m_match = re.search(r'_m\(([^)]+)\)', run_id)
+            if m_match:
+                method_hint = m_match.group(1)
+            method_val = method_hint or run_data.get('method')
+
+            # Size filter: baseline/subtb 使用 large；fl-subtb 允许 medium（或 large 以防有）
+            if method_val == 'fl_subtb_gfn':
+                if size not in ('medium', 'large'):
+                    continue
+            else:
+                if size != 'large':
+                    continue
+
+            # Get the final mean_R value (could be array, take last value)
+            mean_R = run_data.get('mean_R')
+            if isinstance(mean_R, list) and len(mean_R) > 0:
+                mean_R = mean_R[-1]  # Use last value from history
+
+            json_list.append({
+                'run_id': run_id,
+                'alpha': run_data.get('alpha_init'),
+                'method': method_val,
+                'mean_R': mean_R,
+            })
+        
+        if json_list:
+            df_json = pd.DataFrame(json_list)
+            # Map methods to objectives (fallback to parse from run_id)
+            method_to_obj_json = {
+                'subtb_gfn': 'subtb',
+                'fl_subtb_gfn': 'fl-subtb',
+            }
+            df_json['objective'] = df_json['method'].map(method_to_obj_json)
+            df_json.loc[df_json['objective'].isna(), 'objective'] = (
+                df_json[df_json['objective'].isna()]['run_id']
+                .str.extract(r'_m\(([^)]+)\)')[0]
+                .map(method_to_obj_json)
+            )
+            df_json = df_json.dropna(subset=['objective', 'mean_R'])
+            
+            # Filter for chosen alphas
+            df_json_filtered = df_json[df_json['alpha'].isin([0.5, 0.9])]
+            
+            # Add new objectives to chosen alphas (derive eq/mix from available alphas if needed)
+            if not df_json_filtered.empty:
+                agg_json = df_json_filtered.groupby(['objective', 'alpha'])['mean_R'].agg(['mean', 'std']).reset_index()
+                agg_json.columns = ['objective', 'alpha', 'mean', 'std']
+
+                # Derive chosen alphas per json objective
+                for obj in agg_json['objective'].unique():
+                    alphas = sorted(agg_json[agg_json['objective'] == obj]['alpha'].unique())
+                    if len(alphas) >= 2:
+                        eq_a, mix_a = alphas[0], alphas[-1]
+                    elif len(alphas) == 1:
+                        eq_a = mix_a = alphas[0]
+                    else:
+                        continue
+                    chosen[obj] = {"eq": eq_a, "mix": mix_a}
+
+                agg_list.append(agg_json)
+                print(f"Added {len(df_json_filtered)} subtb entries to plot")
+    except Exception as e:
+        print(f"Warning: Could not load JSON data: {e}")
+        import traceback
+        traceback.print_exc()
+
+    if agg_list:
+        agg = pd.concat(agg_list, ignore_index=True)
+    else:
+        agg = pd.DataFrame(columns=['objective', 'alpha', 'mean', 'std'])
+
+    # Only keep objectives that have both eq/mix data present
+    preferred_order = ['db', 'subtb', 'tb', 'fl-db', 'fl-subtb']
+    available = []
+    for obj in preferred_order:
+        if obj not in chosen:
+            continue
+        eq_alpha = chosen[obj]['eq']
+        mix_alpha = chosen[obj]['mix']
+        has_eq = not agg[(agg['objective'] == obj) & (agg['alpha'] == eq_alpha)].empty
+        has_mix = not agg[(agg['objective'] == obj) & (agg['alpha'] == mix_alpha)].empty
+        if has_eq and has_mix:
+            available.append(obj)
+
+    objectives = available
+    
+    print(f"Plotting objectives: {objectives}")
+    print(f"Chosen alphas: {chosen}")
+    
     eq_vals, eq_errs, mix_vals, mix_errs = [], [], [], []
     for obj in objectives:
         eq_alpha = chosen[obj]['eq']
@@ -537,6 +659,7 @@ def plot_alpha_compare_large(set_csv_path='set.csv', png_out='alpha_compare_larg
         r_mix = agg[(agg['objective'] == obj) & (agg['alpha'] == mix_alpha)]
         mix_vals.append(float(r_mix['mean'].iloc[0]) if len(r_mix) else np.nan)
         mix_errs.append(float(r_mix['std'].iloc[0]) if len(r_mix) else np.nan)
+        print(f"{obj}: eq={eq_vals[-1]:.2f}±{eq_errs[-1]:.2f}, mix={mix_vals[-1]:.2f}±{mix_errs[-1]:.2f}")
 
     # Build Plotly figure
     objectives=[x.upper() for x in objectives]  # Uppercase labels
@@ -558,9 +681,6 @@ def plot_alpha_compare_large(set_csv_path='set.csv', png_out='alpha_compare_larg
 
     fig.update_traces(width=0.4)
     n = len(objectives)
-    i_tb = objectives.index('TB')
-    legend_x = (i_tb + 0.5) / n
-
     # 轴标题加粗 + 放大；Legend 放大字号
     fig.update_layout(
         barmode='group',
@@ -570,8 +690,10 @@ def plot_alpha_compare_large(set_csv_path='set.csv', png_out='alpha_compare_larg
         template='plotly_white',
         bargap=0.2,
         bargroupgap=0,
+        width=img_width,
+        height=img_height,
         legend=dict(
-            x=legend_x-0.18, y=0.8,
+            x=0.02, y=0.98,  # Move legend to top-left to avoid covering bars
             xanchor='left', yanchor='top',
             orientation='v',
             bgcolor='rgba(255,255,255,0.6)',
@@ -579,11 +701,11 @@ def plot_alpha_compare_large(set_csv_path='set.csv', png_out='alpha_compare_larg
             borderwidth=1,
             font=dict(size=22)   # ← 放大 legend 字号
         ),
-        margin=dict(l=28, r=6, t=0, b=50)
-    )
+        margin=dict(l=28, r=6, t=0, b=58)    )
     # 同时指定轴标题字体大小（粗体通过上面的 <b> 实现）
-    fig.update_xaxes(title_font=dict(size=22),title_standoff=2, automargin=True,tickfont=dict(size=16))
-    fig.update_yaxes(title_font=dict(size=22),automargin=True,tickfont=dict(size=16))
+    # Enlarge axis title fonts
+    fig.update_xaxes(title_font=dict(size=26),title_standoff=2, automargin=True,tickfont=dict(size=16))
+    fig.update_yaxes(title_font=dict(size=26),automargin=True,tickfont=dict(size=16))
 
     # === 独立的水平/竖直虚线括号 + 左侧倍率文本（保留你的设定） ===
     n_groups = len(objectives)
@@ -635,9 +757,9 @@ def plot_alpha_compare_large(set_csv_path='set.csv', png_out='alpha_compare_larg
         ratio_val = (mix_vals[i]/eq_vals[i]) if (np.isfinite(eq_vals[i]) and eq_vals[i] != 0) else np.nan
         if np.isfinite(ratio_val):
             ratio_txt = f"<b>{ratio_val:.{annotate_decimals}f}×</b>"  # 使用 Unicode ×
-            y_mid = 0.5 * (y_high + y_low)
+            y_mid = y_cap + 3 * gap_y  # place slightly above the cap line
             fig.add_annotation(
-                x=x_line + 0.4, y=y_mid, xref='x2', yref='y',
+                x=x_cap_right + 0.05, y=y_mid, xref='x2', yref='y',
                 text=ratio_txt, showarrow=False,
                 xanchor='right', yanchor='middle',
                 font=dict(size=15)
@@ -648,11 +770,11 @@ def plot_alpha_compare_large(set_csv_path='set.csv', png_out='alpha_compare_larg
 
     # Save PNG and PDF only
     try:
-        pio.write_image(fig, png_out, scale=2)
+        pio.write_image(fig, png_out, scale=2, width=img_width, height=img_height)
     except Exception as e:
         print(f"PNG export failed: {e}")
     try:
-        pio.write_image(fig, pdf_out, scale=2)
+        pio.write_image(fig, pdf_out, scale=2, width=img_width, height=img_height)
     except Exception as e:
         print(f"PDF export failed: {e}")
 
@@ -678,6 +800,6 @@ if __name__=="__main__":
     # for metric in metrics:
     #     print(summary_mols('mols.csv',target=metric))
 
-    # To produce the bar chart for large set (db: α=0.5/0.9, fl-db: α=0.5/0.9, tb: α=0.5/0.7):
-    plot_alpha_compare_large('set.csv', png_out='alpha_compare_large.png', pdf_out='alpha_compare_large.pdf')
+    # To produce the bar chart for large set (db: α=0.5/0.9, fl-db: α=0.5/0.9, tb: α=0.5/0.7, subtb: α=0.5/0.9):
+    plot_alpha_compare_large('rebuttal_set_temp_old.json', json_path='set_run_summary_with_history.json', png_out='alpha_compare_large.png', pdf_out='alpha_compare_large.pdf')
 
