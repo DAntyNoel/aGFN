@@ -3,3 +3,5 @@ archive/
 _*
 
 .DS_Store
+5-appd/all_wandb_histories_merged.jsonl
+6-appd/all_wandb_histories_merged.jsonl
