@@ -498,7 +498,13 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
     import plotly.io as pio
 
     # Load main objectives (db, fl-db, tb) from rebuttal_set_temp_old.json
-    chosen = {'db': {"eq": 0.5, "mix": 0.9}, 'fl-db': {"eq": 0.5, "mix": 0.9}, 'tb': {"eq": 0.5, "mix": 0.7}}
+    chosen = {
+        'db': {"eq": 0.5, "mix": 0.9},
+        'fl-db': {"eq": 0.5, "mix": 0.9},
+        'tb': {"eq": 0.5, "mix": 0.7},
+        'subtb': {"eq": 0.5, "mix": 0.8},
+        'fl-subtb': {"eq": 0.5, "mix": 0.7},
+    }
     agg_list = []
     try:
         import re
@@ -595,15 +601,18 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
             df_json = df_json.dropna(subset=['objective', 'mean_R'])
             
             # Filter for chosen alphas
-            df_json_filtered = df_json[df_json['alpha'].isin([0.5, 0.9])]
+            json_alphas = {0.5, chosen['subtb']['mix'], chosen['fl-subtb']['mix']}
+            df_json_filtered = df_json[df_json['alpha'].isin(json_alphas)]
             
             # Add new objectives to chosen alphas (derive eq/mix from available alphas if needed)
             if not df_json_filtered.empty:
                 agg_json = df_json_filtered.groupby(['objective', 'alpha'])['mean_R'].agg(['mean', 'std']).reset_index()
                 agg_json.columns = ['objective', 'alpha', 'mean', 'std']
 
-                # Derive chosen alphas per json objective
+                # Derive chosen alphas per json objective (skip subtb/fl-subtb: fixed above)
                 for obj in agg_json['objective'].unique():
+                    if obj in ('subtb', 'fl-subtb'):
+                        continue
                     alphas = sorted(agg_json[agg_json['objective'] == obj]['alpha'].unique())
                     if len(alphas) >= 2:
                         eq_a, mix_a = alphas[0], alphas[-1]
