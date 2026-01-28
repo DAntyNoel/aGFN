@@ -4,4 +4,5 @@ _*
 
 .DS_Store
 5-appd/all_wandb_histories_merged.jsonl
+5-appd/all_wandb_histories_merged_resumed.json
 6-appd/all_wandb_histories_merged.jsonl
