@@ -23,10 +23,10 @@ fl_db_gfn,small,modes,0.9,88.6
 fl_db_gfn,small,mean_top_1000_R,0.9,0.21995565728545188
 fl_db_gfn,small,mean_top_1000_similarity,0.9,0.7371031396806809
 fl_db_gfn,small,spearman_corr_test,0.9,0.9746676283437802
-fl_subtb_gfn,large,modes,0.8,3809.4
-fl_subtb_gfn,large,mean_top_1000_R,0.8,819447.4033923341
-fl_subtb_gfn,large,mean_top_1000_similarity,0.9,0.8962614424038586
-fl_subtb_gfn,large,spearman_corr_test,0.7,0.9722171226771955
+fl_subtb_gfn,large,modes,0.7,954.6
+fl_subtb_gfn,large,mean_top_1000_R,0.7,637434.3037370872
+fl_subtb_gfn,large,mean_top_1000_similarity,0.8,0.9108390182167799
+fl_subtb_gfn,large,spearman_corr_test,0.2,0.9473860808974438
 fl_subtb_gfn,medium,modes,0.8,258.6
 fl_subtb_gfn,medium,mean_top_1000_R,0.8,655796.0508125054
 fl_subtb_gfn,medium,mean_top_1000_similarity,0.8,0.8715783651599945

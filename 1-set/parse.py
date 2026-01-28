@@ -65,7 +65,7 @@ def d2():
                     continue
                 if sum_dict['reward_temp'] != 1:
                     continue
-                if sum_dict['fl'] != False:
+                if sum_dict['fl'] != True:
                     continue
             run_dict[name] = sum_dict
             success += 1
@@ -154,6 +154,6 @@ def d4():
 
 if __name__ == '__main__':
     # d1()
-    # d2()
-    d3()
+    d2()
+    # d3()
     # d4()

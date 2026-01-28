@@ -19,7 +19,7 @@ method_alias = {
 # 按期望顺序排列方法，跳过数据中不存在的 method
 method_order = ['db_gfn', 'fl_db_gfn', 'fl_subtb_gfn', 'subtb_gfn', 'tb_gfn']
 available_methods = [m for m in method_order if m in set(df['method'])]
-print(available_methods)
+# print(available_methods)
 available_methods = ['db_gfn', 'fl_db_gfn', 'subtb_gfn', 'fl_subtb_gfn', 'tb_gfn']
 method_labels = [method_alias[m] for m in available_methods]
 
