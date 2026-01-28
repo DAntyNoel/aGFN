@@ -563,13 +563,9 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
                 method_hint = m_match.group(1)
             method_val = method_hint or run_data.get('method')
 
-            # Size filter: baseline/subtb 使用 large；fl-subtb 允许 medium（或 large 以防有）
-            if method_val == 'fl_subtb_gfn':
-                if size not in ('medium', 'large'):
-                    continue
-            else:
-                if size != 'large':
-                    continue
+            # Size filter: baseline/subtb 与 fl-subtb 均严格使用 large
+            if size != 'large':
+                continue
 
             # Get the final mean_R value (could be array, take last value)
             mean_R = run_data.get('mean_R')
