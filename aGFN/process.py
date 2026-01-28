@@ -503,7 +503,7 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
         'fl-db': {"eq": 0.5, "mix": 0.9},
         'tb': {"eq": 0.5, "mix": 0.7},
         'subtb': {"eq": 0.5, "mix": 0.8},
-        'fl-subtb': {"eq": 0.5, "mix": 0.7},
+        'fl-subtb': {"eq": 0.5, "mix": 0.6},
     }
     agg_list = []
     try:
