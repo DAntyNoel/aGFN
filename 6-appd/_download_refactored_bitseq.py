@@ -64,41 +64,34 @@ def load_seen(output_path: Path) -> set[str]:
 def main():
     api = wandb.Api(timeout=60)
     project_path = f"{ENTITY}/{PROJECT}"
-    runs = list(api.runs(project_path))
-    total = len(runs)
+    # runs = list(api.runs(project_path))
+    # total = len(runs)
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    seen = load_seen(OUTPUT)
-    if seen:
-        print(f"Resuming: {len(seen)} runs already in {OUTPUT}")
-    print(f"Total runs: {total}, pending: {max(total - len(seen), 0)}")
+    # OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    # seen = load_seen(OUTPUT)
+    # if seen:
+    #     print(f"Resuming: {len(seen)} runs already in {OUTPUT}")
+    # print(f"Total runs: {total}, pending: {max(total - len(seen), 0)}")
 
     with OUTPUT.open("a") as f:
         written = 0
-        skipped = 0
-        with tqdm(runs, total=total, unit="run", desc="Downloading") as pbar:
-            for idx, run in enumerate(pbar, 1):
-                if run.name in seen:
-                    skipped += 1
-                    if skipped % 25 == 0:
-                        pbar.set_postfix_str(f"skip {run.name}")
-                    continue
-                pbar.set_postfix_str(f"dl {run.name}")
-                try:
-                    history = fetch_history_with_retry(run, VALID_KEYS)
-                except Exception as exc:
-                    tqdm.write(f"⚠️ Failed run {run.name}: {exc}")
-                    continue
-                summarized = summary_keys(history, VALID_KEYS)
-                obj = {
-                    "project": PROJECT,
-                    "run_name": run.name,
-                    "history": history,
-                    "summary": summarized,
-                }
-                f.write(json.dumps(obj))
-                f.write("\n")
-                written += 1
+        for run in api.runs(project_path):
+            try:
+                history = fetch_history_with_retry(run, VALID_KEYS)
+            except Exception as exc:
+                tqdm.write(f"⚠️ Failed run {run.name}: {exc}")
+                continue
+            summarized = summary_keys(history, VALID_KEYS)
+            obj = {
+                "project": PROJECT,
+                "run_name": run.name,
+                "history": history,
+                "summary": summarized,
+            }
+            f.write(json.dumps(obj))
+            f.write("\n")
+            written += 1
+            print(f"✅ Saved run {run.name}")
 
     print(f"Saved to {OUTPUT} (new runs: {written})")
 
