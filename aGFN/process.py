@@ -667,7 +667,7 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
         print(f"{obj}: eq={eq_vals[-1]:.2f}±{eq_errs[-1]:.2f}, mix={mix_vals[-1]:.2f}±{mix_errs[-1]:.2f}")
 
     # Build Plotly figure
-    objectives=['DB', 'SubTB', 'TB', 'FL-DB', 'FL-SubTB']
+    objectives=['DB', 'SubTB(λ)', 'TB', 'FL-DB', 'FL-SubTB(λ)']
     fig = go.Figure()
     fig.add_bar(
         # ← 改为 Unicode 文本
@@ -706,7 +706,7 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
             borderwidth=1,
             font=dict(size=22)   # ← 放大 legend 字号
         ),
-        margin=dict(l=28, r=6, t=0, b=58)    )
+        margin=dict(l=28, r=6, t=60, b=55)    )
     # 同时指定轴标题字体大小（粗体通过上面的 <b> 实现）
     # Enlarge axis title fonts
     fig.update_xaxes(title_font=dict(size=26),title_standoff=2, automargin=True,tickfont=dict(size=16))
