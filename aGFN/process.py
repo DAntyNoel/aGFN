@@ -667,7 +667,7 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
         print(f"{obj}: eq={eq_vals[-1]:.2f}±{eq_errs[-1]:.2f}, mix={mix_vals[-1]:.2f}±{mix_errs[-1]:.2f}")
 
     # Build Plotly figure
-    objectives=[x.upper() for x in objectives]  # Uppercase labels
+    objectives=['DB', 'SubTB', 'TB', 'FL-DB', 'FL-SubTB']  # Uppercase labels
     fig = go.Figure()
     fig.add_bar(
         # ← 改为 Unicode 文本
