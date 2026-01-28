@@ -29,7 +29,7 @@ df['method_alias'] = df['method'].map(method_alias)
 metrics = [
     ('modes_mean', 'modes_std', 'Modes$\\uparrow$', lambda v: f"{v:.1f}", True, False),
     ('mean_top_1000_R_mean', 'mean_top_1000_R_std', 'Top-1000 Reward$\\uparrow$', None, True, False),
-    ('mean_top_1000_similarity_mean', 'mean_top_1000_similarity_std', 'Top-1000 Sim.$\\downarrow$', lambda v: f"{v:.3f}", True, True),
+    ('mean_top_1000_similarity_mean', 'mean_top_1000_similarity_std', 'Top-1000 Sim.$\\downarrow$', lambda v: f"{v:.2f}", True, True),
     ('spearman_corr_test_mean', 'spearman_corr_test_std', 'Spearman Corr', lambda v: f"{v:.3f}", False, False),
 ]
 
