@@ -19,7 +19,7 @@ method_alias = {
 # 按期望顺序排列方法，跳过数据中不存在的 method
 method_order = ['db_gfn', 'fl_db_gfn', 'fl_subtb_gfn', 'subtb_gfn', 'tb_gfn']
 available_methods = [m for m in method_order if m in set(df['method'])]
-print(available_methods)
+# print(available_methods)
 available_methods = ['db_gfn', 'fl_db_gfn', 'subtb_gfn', 'fl_subtb_gfn', 'tb_gfn']
 method_labels = [method_alias[m] for m in available_methods]
 
@@ -29,7 +29,7 @@ df['method_alias'] = df['method'].map(method_alias)
 metrics = [
     ('modes_mean', 'modes_std', 'Modes$\\uparrow$', lambda v: f"{v:.1f}", True, False),
     ('mean_top_1000_R_mean', 'mean_top_1000_R_std', 'Top-1000 Reward$\\uparrow$', None, True, False),
-    ('mean_top_1000_similarity_mean', 'mean_top_1000_similarity_std', 'Top-1000 Sim.$\\downarrow$', lambda v: f"{v:.3f}", True, True),
+    ('mean_top_1000_similarity_mean', 'mean_top_1000_similarity_std', 'Top-1000 Sim.$\\downarrow$', lambda v: f"{v:.2f}", True, True),
     ('spearman_corr_test_mean', 'spearman_corr_test_std', 'Spearman Corr', lambda v: f"{v:.3f}", False, False),
 ]
 

@@ -498,7 +498,13 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
     import plotly.io as pio
 
     # Load main objectives (db, fl-db, tb) from rebuttal_set_temp_old.json
-    chosen = {'db': {"eq": 0.5, "mix": 0.9}, 'fl-db': {"eq": 0.5, "mix": 0.9}, 'tb': {"eq": 0.5, "mix": 0.7}}
+    chosen = {
+        'db': {"eq": 0.5, "mix": 0.9},
+        'fl-db': {"eq": 0.5, "mix": 0.9},
+        'tb': {"eq": 0.5, "mix": 0.7},
+        'subtb': {"eq": 0.5, "mix": 0.8},
+        'fl-subtb': {"eq": 0.5, "mix": 0.7},
+    }
     agg_list = []
     try:
         import re
@@ -563,13 +569,9 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
                 method_hint = m_match.group(1)
             method_val = method_hint or run_data.get('method')
 
-            # Size filter: baseline/subtb 使用 large；fl-subtb 允许 medium（或 large 以防有）
-            if method_val == 'fl_subtb_gfn':
-                if size not in ('medium', 'large'):
-                    continue
-            else:
-                if size != 'large':
-                    continue
+            # Size filter: baseline/subtb 与 fl-subtb 均严格使用 large
+            if size != 'large':
+                continue
 
             # Get the final mean_R value (could be array, take last value)
             mean_R = run_data.get('mean_R')
@@ -599,15 +601,18 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
             df_json = df_json.dropna(subset=['objective', 'mean_R'])
             
             # Filter for chosen alphas
-            df_json_filtered = df_json[df_json['alpha'].isin([0.5, 0.9])]
+            json_alphas = {0.5, chosen['subtb']['mix'], chosen['fl-subtb']['mix']}
+            df_json_filtered = df_json[df_json['alpha'].isin(json_alphas)]
             
             # Add new objectives to chosen alphas (derive eq/mix from available alphas if needed)
             if not df_json_filtered.empty:
                 agg_json = df_json_filtered.groupby(['objective', 'alpha'])['mean_R'].agg(['mean', 'std']).reset_index()
                 agg_json.columns = ['objective', 'alpha', 'mean', 'std']
 
-                # Derive chosen alphas per json objective
+                # Derive chosen alphas per json objective (skip subtb/fl-subtb: fixed above)
                 for obj in agg_json['objective'].unique():
+                    if obj in ('subtb', 'fl-subtb'):
+                        continue
                     alphas = sorted(agg_json[agg_json['objective'] == obj]['alpha'].unique())
                     if len(alphas) >= 2:
                         eq_a, mix_a = alphas[0], alphas[-1]
@@ -662,7 +667,7 @@ def plot_alpha_compare_large(main_json_path='rebuttal_set_temp_old.json', json_p
         print(f"{obj}: eq={eq_vals[-1]:.2f}±{eq_errs[-1]:.2f}, mix={mix_vals[-1]:.2f}±{mix_errs[-1]:.2f}")
 
     # Build Plotly figure
-    objectives=[x.upper() for x in objectives]  # Uppercase labels
+    objectives=['DB', 'SubTB', 'TB', 'FL-DB', 'FL-SubTB']
     fig = go.Figure()
     fig.add_bar(
         # ← 改为 Unicode 文本

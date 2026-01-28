@@ -44,7 +44,7 @@ def download_with_history(project_name, output_prefix):
             
             # 项目特定的筛选
             if project_name == 'Refactored-Alpha-GFN-Set-New-icml':
-                if summary.get('fl') != False:
+                if summary.get('fl') != True:
                     should_skip = True
             elif project_name == 'Refactored-Alpha-GFN-Set-New-icml-fl0':
                 if summary.get('fl') != False:
