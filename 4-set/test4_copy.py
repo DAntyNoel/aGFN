@@ -34,7 +34,7 @@ for method,fl in [("subtb_gfn", False), ("subtb_gfn", True)]:
     groups = defaultdict(list)
     
     # fl=True 时使用 medium size，fl=False 时使用 large size
-    target_size = 'medium' if fl else 'large'
+    target_size = 'large'
 
     for exp_name, record in data.items():
         if record["method"] == method and record["size"] == target_size and record["fl"] == fl:
