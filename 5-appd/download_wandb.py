@@ -25,16 +25,9 @@ FILTERS_BY_PROJECT = {
         "use_alpha_scheduler": True,
         "use_grad_clip": False,
         "reward_temp": 1,
-        "fl": False,
+        "fl": True,
     },
-    "Refactored-Alpha-GFN-Set-New-icml-fl0": {
-        "step": 9999,
-        "training_mode": "online",
-        "use_alpha_scheduler": True,
-        "use_grad_clip": False,
-        "reward_temp": 1,
-        "fl": False,
-    },
+    "Refactored-Alpha-GFN-Set-New-icml-fl0": {},
     "Rebuttal-Set-FL": {
         "step": 9999,
         "training_mode": "online",
@@ -101,19 +94,22 @@ def set_filter_generator(runs, filters):
 def main():
     api = wandb.Api()
     merged = {}
-
-    for project in PROJECTS:
-        project_path = f"{ENTITY}/{project}"
-        runs = api.runs(project_path)
-        filters = FILTERS_BY_PROJECT.get(project, {})
-        merged[project] = {}
-        for run in set_filter_generator(runs, filters):
-            print(f"Processing project {project}: run {run.name}")
-            history = fetch_history_with_retry(run, VALID_KEYS)
-            summarized = summary_keys(history, VALID_KEYS)
-            merged[project][run.name] = summarized
+    cnt = 0
 
     with open(OUTPUT_JSON, "w") as f:
+        for project in PROJECTS:
+            project_path = f"{ENTITY}/{project}"
+            runs = api.runs(project_path)
+            filters = FILTERS_BY_PROJECT.get(project, {})
+            merged[project] = {}
+            for run in set_filter_generator(runs, filters):
+                # print(f"Processing project {project}: run {run.name}")
+                history = fetch_history_with_retry(run, VALID_KEYS, 2, 1)
+                summarized = summary_keys(history, VALID_KEYS)
+                merged[project][str(cnt) + '-' + run.name] = summarized
+                cnt += 1
+                print(f"✅ Processed run {run.name}")
+            print(f"Finished processing project {project}.")
         json.dump(merged, f, indent=2)
     print(f"Saved merged histories to {OUTPUT_JSON}.")
 

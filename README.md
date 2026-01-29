@@ -3,7 +3,7 @@
 1. Set Generation
     - DB,FL-DB,TB: Rebuttal-Set-Temp-Old (要设置reward_temp=1)
     - FL-SubTB: 
-        - large: Refactored-Alpha-GFN-Set-New-icml （注意设置fl=0，这个wandb project里的SubTB不能用，有问题）
+        - large: Refactored-Alpha-GFN-Set-New-icml （注意设置fl=1，这个wandb project里的SubTB不能用，有问题）
         - small/medium: Rebuttal-Set-FL
     - SubTB: small/medium/large均在 Refactored-Alpha-GFN-Set-New-icml-fl0
     - 需要的指标: modes, mean_top_1000_R, mean_top_1000_similarity, spearman_corr_test
