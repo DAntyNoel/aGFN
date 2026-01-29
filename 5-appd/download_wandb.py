@@ -77,7 +77,8 @@ def fetch_history_with_retry(run, valid_keys, max_retries=5, delay=3):
             f"⚠️ Run {run.name}: history incomplete, retry {attempt + 1}/{max_retries} ..."
         )
         time.sleep(delay)
-    raise RuntimeError(f"❌ Failed to fetch complete history for run {run.name}")
+    print(f"❌ Failed to fetch complete history for run {run.name}")
+    return history
 
 
 def set_filter_generator(runs, filters):
