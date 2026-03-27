@@ -1,0 +1,14 @@
+target,metric,n_runs,mean,std,mean+-std,available
+modes,paper_num_modes,27,0.0,0.0,0+-0,True
+modes,all_num_modes,27,7147.0,3072.312383956974,7147+-3072.31,True
+modes,onpolicy_num_modes,27,2.037037037037037,1.5059237257597968,2.03704+-1.50592,True
+modes,paper_onpolicy_num_modes,27,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,27,0.0,0.0,0+-0,True
+spearman correlation,N/A,27,,,N/A,False
+diversity,top1000_tanimoto_diversity,27,0.24144540809128023,0.02757196732970565,0.241445+-0.027572,True
+diversity,top100_tanimoto_diversity,27,0.2366265743584046,0.030058671469629338,0.236627+-0.0300587,True
+diversity,onpolicy_tanimoto_diversity,27,0.23126814953297392,0.028386917691932537,0.231268+-0.0283869,True
+diversity,onpolicy_mode_tanimoto_diversity,16,0.2713151030471189,0.023067262905982783,0.271315+-0.0230673,True
+diversity,entropy,27,66.1061599166305,10.656752532908722,66.1062+-10.6568,True
+top rewards,sampled_reward_avg,27,0.9055145934776023,0.017673900297636574,0.905515+-0.0176739,True
+top rewards,reward_loss,27,0.0,0.0,0+-0,True

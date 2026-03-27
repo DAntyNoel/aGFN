@@ -1,0 +1,5 @@
+target_concept,selected_metric,status,candidate_metrics,notes
+modes,all_num_modes,proxy,paper_num_modes;all_num_modes;onpolicy_num_modes;paper_onpolicy_num_modes;paper_num_modes_frac,paper_num_modes is constant; switched to the first non-constant mode-count proxy.
+spearman correlation,N/A,missing,N/A,No metric containing spearman/corr in this project (checked summary keys).
+diversity,top1000_tanimoto_diversity,available,top1000_tanimoto_diversity;top100_tanimoto_diversity;onpolicy_tanimoto_diversity;onpolicy_mode_tanimoto_diversity;entropy,Selected by priority: top-k tanimoto diversity is closest to global diversity quality.
+top rewards,sampled_reward_avg,proxy,sampled_reward_avg;reward_loss,No explicit top-k reward metric; using reward-level proxy by priority.

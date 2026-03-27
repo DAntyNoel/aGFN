@@ -1,0 +1,118 @@
+target,metric,alpha_init,n_runs,mean,std,mean+-std,available
+diversity,entropy,0.1,3,73.2603022257487,0.35396890519296076,73.2603+-0.353969,True
+diversity,entropy,0.2,3,72.33018239339192,0.5463363020980899,72.3302+-0.546336,True
+diversity,entropy,0.3,3,69.45719909667969,4.525735693777376,69.4572+-4.52574,True
+diversity,entropy,0.4,3,70.9944559733073,0.10134959179952448,70.9945+-0.10135,True
+diversity,entropy,0.5,3,72.06330871582031,0.4187142292939468,72.0633+-0.418714,True
+diversity,entropy,0.6,3,69.45696258544922,4.547941284107902,69.457+-4.54794,True
+diversity,entropy,0.7,3,63.477980295817055,15.944164228819465,63.478+-15.9442,True
+diversity,entropy,0.8,3,54.841044108072914,16.768147196382937,54.841+-16.7681,True
+diversity,entropy,0.9,3,49.07400385538737,2.388020653247499,49.074+-2.38802,True
+diversity,onpolicy_mode_tanimoto_diversity,0.1,3,0.2709118247854119,0.015391601184587864,0.270912+-0.0153916,True
+diversity,onpolicy_mode_tanimoto_diversity,0.2,3,0.2661340552060715,0.008817085416110119,0.266134+-0.00881709,True
+diversity,onpolicy_mode_tanimoto_diversity,0.3,3,0.28711953187009753,0.019839070366581085,0.28712+-0.0198391,True
+diversity,onpolicy_mode_tanimoto_diversity,0.4,3,0.2768341495587698,0.010530624116077416,0.276834+-0.0105306,True
+diversity,onpolicy_mode_tanimoto_diversity,0.5,3,0.2211155378486056,0.0,0.221116+-0,True
+diversity,onpolicy_mode_tanimoto_diversity,0.6,3,0.23349937733499376,0.0,0.233499+-0,True
+diversity,onpolicy_mode_tanimoto_diversity,0.7,3,0.2896756669546684,0.023853963127572306,0.289676+-0.023854,True
+diversity,onpolicy_mode_tanimoto_diversity,0.8,3,0.26928323015341404,0.017287921639627498,0.269283+-0.0172879,True
+diversity,onpolicy_mode_tanimoto_diversity,0.9,3,,,N/A,False
+diversity,onpolicy_tanimoto_diversity,0.1,3,0.24067737398281275,0.006114415734465128,0.240677+-0.00611442,True
+diversity,onpolicy_tanimoto_diversity,0.2,3,0.241057245290446,0.006395885206824724,0.241057+-0.00639589,True
+diversity,onpolicy_tanimoto_diversity,0.3,3,0.24315968667454824,0.0024818288145374515,0.24316+-0.00248183,True
+diversity,onpolicy_tanimoto_diversity,0.4,3,0.24165739101034345,0.01373349459994819,0.241657+-0.0137335,True
+diversity,onpolicy_tanimoto_diversity,0.5,3,0.2374916582668133,0.0047394000421538355,0.237492+-0.0047394,True
+diversity,onpolicy_tanimoto_diversity,0.6,3,0.24492593489302483,0.0065013601489297464,0.244926+-0.00650136,True
+diversity,onpolicy_tanimoto_diversity,0.7,3,0.2418059954931305,0.0023191793320329725,0.241806+-0.00231918,True
+diversity,onpolicy_tanimoto_diversity,0.8,3,0.234739878071049,0.008349576870394964,0.23474+-0.00834958,True
+diversity,onpolicy_tanimoto_diversity,0.9,3,0.15589818211459747,0.019201097296905292,0.155898+-0.0192011,True
+diversity,top1000_tanimoto_diversity,0.1,3,0.2494252148540209,0.002456542068065036,0.249425+-0.00245654,True
+diversity,top1000_tanimoto_diversity,0.2,3,0.24565283046516717,0.00396881177199893,0.245653+-0.00396881,True
+diversity,top1000_tanimoto_diversity,0.3,3,0.24716314430845285,0.00035260149963759277,0.247163+-0.000352601,True
+diversity,top1000_tanimoto_diversity,0.4,3,0.24749282379555027,0.0031569481602020844,0.247493+-0.00315695,True
+diversity,top1000_tanimoto_diversity,0.5,3,0.25328756012574827,0.0025998392977951,0.253288+-0.00259984,True
+diversity,top1000_tanimoto_diversity,0.6,3,0.25754432578553277,0.006349357648203652,0.257544+-0.00634936,True
+diversity,top1000_tanimoto_diversity,0.7,3,0.2549617817767022,0.0064065238515044675,0.254962+-0.00640652,True
+diversity,top1000_tanimoto_diversity,0.8,3,0.25121048047225764,0.00468420148753942,0.25121+-0.0046842,True
+diversity,top1000_tanimoto_diversity,0.9,3,0.16627051123808992,0.004667388986011263,0.166271+-0.00466739,True
+diversity,top100_tanimoto_diversity,0.1,3,0.24078357640914028,0.008686396492247358,0.240784+-0.0086864,True
+diversity,top100_tanimoto_diversity,0.2,3,0.23511756624344704,0.008083534970171578,0.235118+-0.00808353,True
+diversity,top100_tanimoto_diversity,0.3,3,0.24020119365448955,0.003071992340616653,0.240201+-0.00307199,True
+diversity,top100_tanimoto_diversity,0.4,3,0.24105177510428846,0.008549400825730318,0.241052+-0.0085494,True
+diversity,top100_tanimoto_diversity,0.5,3,0.2505320823680815,0.002775069732828503,0.250532+-0.00277507,True
+diversity,top100_tanimoto_diversity,0.6,3,0.25377611137505657,0.007077033463190727,0.253776+-0.00707703,True
+diversity,top100_tanimoto_diversity,0.7,3,0.2549730477510674,0.012997792617359604,0.254973+-0.0129978,True
+diversity,top100_tanimoto_diversity,0.8,3,0.2548694824548931,0.012113562999102555,0.254869+-0.0121136,True
+diversity,top100_tanimoto_diversity,0.9,3,0.15833433386517748,0.011888074653813545,0.158334+-0.0118881,True
+modes,all_num_modes,0.1,3,9321.666666666666,319.16192337641615,9321.67+-319.162,True
+modes,all_num_modes,0.2,3,9316.333333333334,145.2113402366817,9316.33+-145.211,True
+modes,all_num_modes,0.3,3,8988.333333333334,417.30724093086775,8988.33+-417.307,True
+modes,all_num_modes,0.4,3,8706.0,227.5346127515548,8706+-227.535,True
+modes,all_num_modes,0.5,3,8149.333333333333,262.97972038416447,8149.33+-262.98,True
+modes,all_num_modes,0.6,3,7529.666666666667,615.3066985929321,7529.67+-615.307,True
+modes,all_num_modes,0.7,3,7501.333333333333,951.5158082414255,7501.33+-951.516,True
+modes,all_num_modes,0.8,3,4769.0,3462.508339340138,4769+-3462.51,True
+modes,all_num_modes,0.9,3,41.333333333333336,7.094598884597588,41.3333+-7.0946,True
+modes,onpolicy_num_modes,0.1,3,4.0,3.0,4+-3,True
+modes,onpolicy_num_modes,0.2,3,2.0,1.0,2+-1,True
+modes,onpolicy_num_modes,0.3,3,2.0,1.0,2+-1,True
+modes,onpolicy_num_modes,0.4,3,3.0,1.0,3+-1,True
+modes,onpolicy_num_modes,0.5,3,1.0,1.0,1+-1,True
+modes,onpolicy_num_modes,0.6,3,1.3333333333333333,0.5773502691896257,1.33333+-0.57735,True
+modes,onpolicy_num_modes,0.7,3,2.6666666666666665,0.5773502691896258,2.66667+-0.57735,True
+modes,onpolicy_num_modes,0.8,3,2.0,1.0,2+-1,True
+modes,onpolicy_num_modes,0.9,3,0.3333333333333333,0.5773502691896258,0.333333+-0.57735,True
+modes,paper_num_modes,0.1,3,0.0,0.0,0+-0,True
+modes,paper_num_modes,0.2,3,0.0,0.0,0+-0,True
+modes,paper_num_modes,0.3,3,0.0,0.0,0+-0,True
+modes,paper_num_modes,0.4,3,0.0,0.0,0+-0,True
+modes,paper_num_modes,0.5,3,0.0,0.0,0+-0,True
+modes,paper_num_modes,0.6,3,0.0,0.0,0+-0,True
+modes,paper_num_modes,0.7,3,0.0,0.0,0+-0,True
+modes,paper_num_modes,0.8,3,0.0,0.0,0+-0,True
+modes,paper_num_modes,0.9,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.1,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.2,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.3,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.4,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.5,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.6,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.7,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.8,3,0.0,0.0,0+-0,True
+modes,paper_num_modes_frac,0.9,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.1,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.2,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.3,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.4,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.5,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.6,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.7,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.8,3,0.0,0.0,0+-0,True
+modes,paper_onpolicy_num_modes,0.9,3,0.0,0.0,0+-0,True
+spearman correlation,N/A,0.1,3,,,N/A,False
+spearman correlation,N/A,0.2,3,,,N/A,False
+spearman correlation,N/A,0.3,3,,,N/A,False
+spearman correlation,N/A,0.4,3,,,N/A,False
+spearman correlation,N/A,0.5,3,,,N/A,False
+spearman correlation,N/A,0.6,3,,,N/A,False
+spearman correlation,N/A,0.7,3,,,N/A,False
+spearman correlation,N/A,0.8,3,,,N/A,False
+spearman correlation,N/A,0.9,3,,,N/A,False
+top rewards,reward_loss,0.1,3,0.0,0.0,0+-0,True
+top rewards,reward_loss,0.2,3,0.0,0.0,0+-0,True
+top rewards,reward_loss,0.3,3,0.0,0.0,0+-0,True
+top rewards,reward_loss,0.4,3,0.0,0.0,0+-0,True
+top rewards,reward_loss,0.5,3,0.0,0.0,0+-0,True
+top rewards,reward_loss,0.6,3,0.0,0.0,0+-0,True
+top rewards,reward_loss,0.7,3,0.0,0.0,0+-0,True
+top rewards,reward_loss,0.8,3,0.0,0.0,0+-0,True
+top rewards,reward_loss,0.9,3,0.0,0.0,0+-0,True
+top rewards,sampled_reward_avg,0.1,3,0.9148897528648376,0.009360923129664963,0.91489+-0.00936092,True
+top rewards,sampled_reward_avg,0.2,3,0.9153964320818583,0.006485020743458514,0.915396+-0.00648502,True
+top rewards,sampled_reward_avg,0.3,3,0.9187196493148804,0.014448243333772006,0.91872+-0.0144482,True
+top rewards,sampled_reward_avg,0.4,3,0.9188899199167887,0.0015017790815683837,0.91889+-0.00150178,True
+top rewards,sampled_reward_avg,0.5,3,0.9058302640914917,0.009473651757398796,0.90583+-0.00947365,True
+top rewards,sampled_reward_avg,0.6,3,0.898328423500061,0.005419526776939777,0.898328+-0.00541953,True
+top rewards,sampled_reward_avg,0.7,3,0.9175654053688049,0.00830785073039683,0.917565+-0.00830785,True
+top rewards,sampled_reward_avg,0.8,3,0.8891841769218445,0.009399301627871918,0.889184+-0.0093993,True
+top rewards,sampled_reward_avg,0.9,3,0.870827317237854,0.011622621166432052,0.870827+-0.0116226,True
