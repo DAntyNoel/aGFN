@@ -1,0 +1,7 @@
+source_file,run_name,sampling_seed,alpha_init,method,size,modes,mean_top_1000_R,mean_top_1000_similarity,spearman_corr_test
+rebuttal_set_temp_old.json,ss(0)_ms(0)_md(on)_mdfr(0)_upb(1)_sz(large)_m(tb_gfn)_a(0.5),0,0.5,tb_gfn,large,0,11508.795325683594,0.7361968919775983,0.9960793590440732
+rebuttal_set_temp_old.json,ss(1)_ms(0)_md(on)_mdfr(0)_upb(1)_sz(large)_m(tb_gfn)_a(0.5),1,0.5,tb_gfn,large,0,11634.088659667968,0.7365700930293604,0.9961117050767104
+rebuttal_set_temp_old.json,ss(2)_ms(0)_md(on)_mdfr(0)_upb(1)_sz(large)_m(tb_gfn)_a(0.5),2,0.5,tb_gfn,large,0,11934.608678710938,0.7367612710656304,0.9963130293019686
+rebuttal_set_temp_old.json,ss(0)_ms(0)_md(on)_mdfr(0)_upb(1)_sz(large)_m(tb_gfn)_a(0.7),0,0.7,tb_gfn,large,711,700731.159125,0.8662854190496246,0.9964710964075764
+rebuttal_set_temp_old.json,ss(1)_ms(0)_md(on)_mdfr(0)_upb(1)_sz(large)_m(tb_gfn)_a(0.7),1,0.7,tb_gfn,large,891,731050.572875,0.8808461284249556,0.9964039563823802
+rebuttal_set_temp_old.json,ss(2)_ms(0)_md(on)_mdfr(0)_upb(1)_sz(large)_m(tb_gfn)_a(0.7),2,0.7,tb_gfn,large,354,646650.6945,0.8660525917048403,0.9961960111617754
