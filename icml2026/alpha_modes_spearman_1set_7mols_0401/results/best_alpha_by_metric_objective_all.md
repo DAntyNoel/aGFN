@@ -1,0 +1,20 @@
+| Objective | Metric | Best Alpha | Best Value (mean±std) | Is Baseline α=0.5 | Tie Alphas |
+|---|---|---|---|---|---|
+| MOLS-DB | Modes (higher better) | 0.6 | 14.40±2.41 | No | 0.6 |
+| MOLS-DB | Spearman (lower better) | 0.2 | 0.366±0.290 | No | 0.2 |
+| MOLS-FL-DB | Modes (higher better) | 0.9 | 25.00±4.36 | No | 0.9 |
+| MOLS-FL-DB | Spearman (lower better) | 0.1 | -0.579±0.012 | No | 0.1 |
+| MOLS-SubTB(lambda) | Modes (higher better) | 0.6 | 26.40±2.30 | No | 0.6 |
+| MOLS-SubTB(lambda) | Spearman (lower better) | 0.5 | 0.566±0.069 | Yes | 0.5 |
+| MOLS-FL-SubTB(lambda) | Modes (higher better) | 0.9 | 39.20±7.05 | No | 0.9 |
+| MOLS-FL-SubTB(lambda) | Spearman (lower better) | 0.7 | -0.625±0.060 | No | 0.7 |
+| MOLS-TB | Modes (higher better) | 0.9 | 60.60±32.39 | No | 0.9 |
+| MOLS-TB | Spearman (lower better) | 0.2 | -0.312±0.289 | No | 0.2 |
+| SET-SubTB-FL0-SMALL | Modes (higher better) | 0.8 | 34.20±8.07 | No | 0.8 |
+| SET-SubTB-FL0-SMALL | Spearman (lower better) | 0.1 | 0.989±0.006 | No | 0.1 |
+| SET-SubTB-FL0-MEDIUM | Modes (higher better) | 0.9 | 5.20±6.76 | No | 0.9 |
+| SET-SubTB-FL0-MEDIUM | Spearman (lower better) | 0.7 | 0.948±0.010 | No | 0.7 |
+| SET-SubTB-FL0-LARGE | Modes (higher better) | 0.8 | 2.00±4.47 | No | 0.8 |
+| SET-SubTB-FL0-LARGE | Spearman (lower better) | 0.3 | 0.916±0.043 | No | 0.3 |
+| SET-SubTB-FL1-LARGE | Modes (higher better) | 0.7 | 954.60±1447.58 | No | 0.7 |
+| SET-SubTB-FL1-LARGE | Spearman (lower better) | 0.9 | 0.540±0.029 | No | 0.9 |
