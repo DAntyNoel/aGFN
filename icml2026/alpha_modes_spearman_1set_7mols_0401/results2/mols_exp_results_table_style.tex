@@ -1,0 +1,26 @@
+\begin{table*}[t]
+\caption{\textit{Results on Molecule Generation.} $\alpha$-GFNs are better at the number of discovered modes for all objectives. Spearman correlations of FL-DB and FL-SubTB($\lambda$) are omitted due to their biased target~\citep{silva2025when}. For all metrics except Spearman correlation, we \textbf{bold} the better result. Standard deviations are presented in \textcolor{gray}{gray}.}
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{\hspace{.6em}}lcccccccccc@{\hspace{.6em}}}
+\toprule
+\multicolumn{1}{c}{} &
+\multicolumn{2}{c}{\textbf{DB}} &
+\multicolumn{2}{c}{\textbf{FL-DB}} &
+\multicolumn{2}{c}{\textbf{SubTB($\lambda$)}} &
+\multicolumn{2}{c}{\textbf{FL-SubTB($\lambda$)}} &
+\multicolumn{2}{c}{\textbf{TB}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+\textbf{Metric} & Baseline & Ours & Baseline & Ours & Baseline & Ours & Baseline & Ours & Baseline & Ours \\
+\midrule
+Modes$\uparrow$& \msl{10.00}{3.08}& \msl{\textbf{14.40}}{2.41}& \msl{9.00}{1.58}& \msl{\textbf{25.00}}{4.36}& \msl{22.20}{2.77}& \msl{\textbf{26.40}}{2.30}& \msl{16.00}{3.16}& \msl{\textbf{39.20}}{7.05}& \msl{38.40}{6.11}& \msl{\textbf{60.60}}{32.39} \\
+Top-1000 R$\uparrow$& \msl{\textbf{6.33}}{0.01}& \msl{6.32}{0.01}& \msl{\textbf{6.69}}{0.06}& \msl{6.47}{0.14}& \msl{6.51}{0.02}& \msl{\textbf{6.52}}{0.01}& \msl{6.48}{0.13}& \msl{\textbf{6.50}}{0.05}& \msl{6.70}{0.07}& \msl{\textbf{6.74}}{0.12} \\
+Spearman& \msl{0.526}{0.016}& \msl{0.500}{0.046}& \multicolumn{2}{c}{\textemdash}& \msl{0.566}{0.069}& \msl{0.586}{0.051}& \multicolumn{2}{c}{\textemdash}& \msl{0.218}{0.454}& \msl{0.083}{0.424} \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:mols-exp-results-alpha0401}
+\end{table*}

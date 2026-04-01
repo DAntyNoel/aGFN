@@ -1,0 +1,37 @@
+\begin{table*}[t]
+\caption{\textit{Results on Bit Sequence Generation.} We report Baseline ($\alpha=0.5$) and Ours (best non-baseline $\alpha$ by Modes) for each objective and each $k$. For all metrics except Spearman correlation, we \textbf{bold} the better result. Standard deviations are presented in \textcolor{gray}{gray}.}
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{llcccccccccc}
+\toprule
+\multicolumn{1}{c}{} & \multicolumn{1}{c}{} & \multicolumn{2}{c}{\textbf{DB}} & \multicolumn{2}{c}{\textbf{FL-DB}} & \multicolumn{2}{c}{\textbf{SubTB($\lambda$)}} & \multicolumn{2}{c}{\textbf{FL-SubTB($\lambda$)}} & \multicolumn{2}{c}{\textbf{TB}} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}\cmidrule(lr){11-12}
+\textbf{k} & \textbf{Metric} & Baseline & Ours & Baseline & Ours & Baseline & Ours & Baseline & Ours & Baseline & Ours \\
+\midrule
+\multirow{3}{*}{2} & Modes & \msl{0.60}{0.89} & \msl{\textbf{2.60}}{2.07} & \msl{\textbf{60.00}}{0.00} & \msl{60.00}{0.00} & \msl{\textbf{22.80}}{13.27} & \msl{20.80}{11.39} & \msl{55.40}{6.02} & \msl{\textbf{59.80}}{0.45} & \msl{12.20}{2.39} & \msl{\textbf{16.80}}{3.77} \\
+ & Spearman & \msl{0.318}{0.432} & \msl{0.500}{0.042} & \msl{0.633}{0.009} & \msl{0.624}{0.003} & \msl{0.473}{0.065} & \msl{0.509}{0.186} & \msl{0.476}{0.070} & \msl{0.545}{0.005} & \msl{0.469}{0.168} & \msl{0.545}{0.001} \\
+ & Top-1000 R & \msl{9.57e-30}{8.96e-30} & \msl{\textbf{7.67e-28}}{1.67e-27} & \msl{\textbf{6.44e-12}}{7.32e-12} & \msl{2.42e-12}{8.33e-13} & \msl{2.38e-05}{2.68e-05} & \msl{\textbf{3.26e-05}}{7.03e-05} & \msl{\textbf{9.85e-02}}{8.99e-02} & \msl{1.61e-12}{2.36e-12} & \msl{\textbf{2.59e-04}}{5.78e-04} & \msl{1.87e-23}{4.07e-23} \\
+\midrule
+\multirow{3}{*}{4} & Modes & \msl{9.80}{6.50} & \msl{\textbf{13.00}}{6.36} & \msl{57.60}{1.34} & \msl{\textbf{59.20}}{0.45} & \msl{35.40}{4.16} & \msl{\textbf{40.40}}{2.97} & \msl{58.80}{1.10} & \msl{\textbf{59.40}}{0.55} & \msl{38.00}{2.74} & \msl{\textbf{41.80}}{5.07} \\
+ & Spearman & \msl{0.576}{0.001} & \msl{0.575}{0.001} & \msl{0.566}{0.002} & \msl{0.564}{0.001} & \msl{0.578}{0.001} & \msl{0.598}{0.019} & \msl{0.572}{0.002} & \msl{0.580}{0.012} & \msl{0.579}{0.001} & \msl{0.578}{0.001} \\
+ & Top-1000 R & \msl{\textbf{5.11e-26}}{8.27e-26} & \msl{7.53e-27}{1.13e-26} & \msl{5.14e-23}{5.01e-23} & \msl{\textbf{9.58e-13}}{4.20e-13} & \msl{3.57e-25}{6.28e-25} & \msl{\textbf{2.41e-24}}{4.73e-24} & \msl{4.43e-11}{4.98e-11} & \msl{\textbf{1.81e-10}}{3.71e-10} & \msl{5.85e-25}{7.37e-25} & \msl{\textbf{8.25e-25}}{7.48e-25} \\
+\midrule
+\multirow{3}{*}{6} & Modes & \msl{4.20}{1.92} & \msl{\textbf{5.20}}{1.30} & \msl{31.40}{5.03} & \msl{\textbf{32.00}}{4.06} & \msl{20.60}{3.36} & \msl{\textbf{22.20}}{7.33} & \msl{\textbf{48.20}}{2.39} & \msl{47.80}{1.92} & \msl{21.60}{2.70} & \msl{\textbf{23.40}}{3.71} \\
+ & Spearman & \msl{0.553}{0.012} & \msl{0.558}{0.004} & \msl{0.546}{0.002} & \msl{0.546}{0.002} & \msl{0.554}{0.001} & \msl{0.591}{0.088} & \msl{0.555}{0.002} & \msl{0.555}{0.001} & \msl{0.556}{0.002} & \msl{0.557}{0.003} \\
+ & Top-1000 R & \msl{\textbf{2.11e-24}}{4.71e-24} & \msl{9.45e-28}{1.55e-27} & \msl{2.18e-24}{4.67e-24} & \msl{\textbf{2.94e-14}}{9.72e-15} & \msl{\textbf{1.57e-26}}{1.44e-26} & \msl{1.36e-26}{2.06e-26} & \msl{2.85e-24}{4.52e-24} & \msl{\textbf{5.68e-13}}{1.03e-12} & \msl{1.90e-26}{1.59e-26} & \msl{\textbf{6.48e-21}}{1.45e-20} \\
+\midrule
+\multirow{3}{*}{8} & Modes & \msl{36.40}{1.82} & \msl{\textbf{44.40}}{3.78} & \msl{59.80}{0.45} & \msl{\textbf{60.00}}{0.00} & \msl{\textbf{58.60}}{1.67} & \msl{58.60}{0.89} & \msl{\textbf{60.00}}{0.00} & \msl{60.00}{0.00} & \msl{58.80}{1.30} & \msl{\textbf{59.00}}{0.00} \\
+ & Spearman & \msl{0.793}{0.004} & \msl{0.793}{0.002} & \msl{0.727}{0.006} & \msl{0.729}{0.007} & \msl{0.811}{0.003} & \msl{0.810}{0.002} & \msl{0.764}{0.009} & \msl{0.765}{0.006} & \msl{0.814}{0.003} & \msl{0.813}{0.004} \\
+ & Top-1000 R & \msl{4.91e-25}{7.53e-25} & \msl{\textbf{7.80e-25}}{8.80e-25} & \msl{\textbf{1.57e-12}}{9.33e-13} & \msl{8.81e-13}{3.03e-13} & \msl{\textbf{5.68e-23}}{4.17e-23} & \msl{3.00e-23}{3.41e-23} & \msl{6.66e-12}{3.22e-12} & \msl{\textbf{1.01e-11}}{6.03e-12} & \msl{2.14e-23}{3.24e-23} & \msl{\textbf{1.31e-22}}{2.61e-22} \\
+\midrule
+\multirow{3}{*}{10} & Modes & \msl{6.80}{2.05} & \msl{\textbf{8.20}}{2.39} & \msl{20.80}{5.02} & \msl{\textbf{23.40}}{0.55} & \msl{19.20}{4.92} & \msl{\textbf{21.60}}{3.05} & \msl{35.20}{2.28} & \msl{\textbf{37.40}}{2.79} & \msl{\textbf{24.40}}{3.36} & \msl{23.80}{1.79} \\
+ & Spearman & \msl{0.569}{0.005} & \msl{0.571}{0.002} & \msl{0.567}{0.001} & \msl{0.567}{0.001} & \msl{0.566}{0.003} & \msl{0.566}{0.001} & \msl{0.570}{0.001} & \msl{0.569}{0.001} & \msl{0.567}{0.005} & \msl{0.566}{0.002} \\
+ & Top-1000 R & \msl{4.38e-28}{4.48e-28} & \msl{\textbf{2.56e-27}}{4.65e-27} & \msl{1.40e-14}{5.58e-15} & \msl{\textbf{2.23e-14}}{1.60e-14} & \msl{\textbf{5.01e-26}}{9.73e-26} & \msl{2.29e-26}{2.54e-26} & \msl{3.38e-14}{9.41e-15} & \msl{\textbf{5.77e-14}}{3.70e-14} & \msl{\textbf{3.73e-25}}{7.04e-25} & \msl{2.62e-26}{1.28e-26} \\
+\bottomrule
+\end{tabular}
+}% end resizebox
+\label{tab:bit-exp-results-alpha0401}
+\end{table*}

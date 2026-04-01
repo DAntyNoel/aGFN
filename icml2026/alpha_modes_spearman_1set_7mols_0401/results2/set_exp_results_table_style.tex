@@ -1,0 +1,37 @@
+\begin{table*}[t]
+\caption{\textit{Results on Set Generation.} We report Baseline ($\alpha=0.5$) and Ours (best non-baseline $\alpha$ by Modes) for each objective and set size. For all metrics except Spearman correlation, we \textbf{bold} the better result. Standard deviations are presented in \textcolor{gray}{gray}.}
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{@{\hspace{.6em}}lcccccccccc@{\hspace{.6em}}}
+\toprule
+\multicolumn{1}{c}{} &
+\multicolumn{2}{c}{\textbf{DB}} &
+\multicolumn{2}{c}{\textbf{FL-DB}} &
+\multicolumn{2}{c}{\textbf{SubTB($\lambda$)}} &
+\multicolumn{2}{c}{\textbf{FL-SubTB($\lambda$)}} &
+\multicolumn{2}{c}{\textbf{TB}} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}\cmidrule(lr){10-11}
+\textbf{Metric} & Baseline & Ours & Baseline & Ours & Baseline & Ours & Baseline & Ours & Baseline & Ours \\
+\midrule
+\multicolumn{11}{c}{\textbf{Small Set}} \\
+Modes$\uparrow$& \msl{24.80}{2.59}& \msl{\textbf{55.80}}{13.92}& \msl{83.00}{2.45}& \msl{\textbf{88.60}}{2.19}& \msl{20.00}{4.06}& \msl{\textbf{34.20}}{8.07}& \msl{89.60}{0.89}& \msl{\textbf{90.00}}{0.00}& \msl{23.20}{2.39}& \msl{\textbf{24.80}}{3.27} \\
+Top-1000 R$\uparrow$& \msl{0.18}{0.00}& \msl{\textbf{0.20}}{0.01}& \msl{0.22}{0.00}& \msl{\textbf{0.22}}{0.00}& \msl{0.18}{0.00}& \msl{\textbf{0.19}}{0.01}& \msl{0.22}{0.00}& \msl{\textbf{0.22}}{0.00}& \msl{0.18}{0.00}& \msl{\textbf{0.18}}{0.00} \\
+Spearman& \msl{0.999}{0.000}& \msl{0.995}{0.001}& \msl{0.992}{0.002}& \msl{0.975}{0.007}& \msl{0.992}{0.005}& \msl{0.997}{0.001}& \msl{0.997}{0.001}& \msl{0.991}{0.002}& \msl{0.999}{0.000}& \msl{0.999}{0.000} \\
+\midrule
+\multicolumn{11}{c}{\textbf{Medium Set}} \\
+Modes$\uparrow$& \msl{0.00}{0.00}& \msl{\textbf{31.40}}{34.06}& \msl{14.20}{10.06}& \msl{\textbf{118.60}}{45.88}& \msl{0.00}{0.00}& \msl{\textbf{5.20}}{6.76}& \msl{16.00}{8.60}& \msl{\textbf{258.60}}{296.32}& \msl{0.00}{0.00}& \msl{\textbf{499.00}}{427.07} \\
+Top-1000 R$\uparrow$& \msl{110427.38}{5337.25}& \msl{\textbf{552020.09}}{59210.23}& \msl{507462.73}{47471.45}& \msl{\textbf{638688.10}}{24711.41}& \msl{160688.93}{40230.65}& \msl{\textbf{434821.48}}{78120.95}& \msl{531806.17}{14738.45}& \msl{\textbf{655796.05}}{68334.69}& \msl{44854.41}{1480.97}& \msl{\textbf{703904.36}}{39194.70} \\
+Spearman& \msl{0.993}{0.004}& \msl{0.973}{0.005}& \msl{0.968}{0.008}& \msl{0.935}{0.013}& \msl{0.968}{0.007}& \msl{0.956}{0.013}& \msl{0.972}{0.006}& \msl{0.775}{0.031}& \msl{0.998}{0.000}& \msl{0.862}{0.300} \\
+\midrule
+\multicolumn{11}{c}{\textbf{Large Set}} \\
+Modes$\uparrow$& \msl{0.00}{0.00}& \msl{\textbf{355.80}}{319.84}& \msl{247.60}{147.17}& \msl{\textbf{2239.20}}{169.80}& \msl{0.00}{0.00}& \msl{\textbf{2.00}}{4.47}& \msl{118.60}{84.81}& \msl{\textbf{954.60}}{1447.58}& \msl{0.00}{0.00}& \msl{\textbf{591.60}}{210.56} \\
+Top-1000 R$\uparrow$& \msl{58086.54}{5216.95}& \msl{\textbf{624721.77}}{55336.88}& \msl{593090.24}{67865.24}& \msl{\textbf{768544.60}}{6904.37}& \msl{53579.36}{27673.87}& \msl{\textbf{159144.73}}{87726.56}& \msl{542496.74}{54447.88}& \msl{\textbf{637434.30}}{123464.21}& \msl{11754.28}{230.91}& \msl{\textbf{683702.46}}{32706.82} \\
+Spearman& \msl{0.984}{0.004}& \msl{0.945}{0.004}& \msl{0.902}{0.019}& \msl{0.847}{0.018}& \msl{0.944}{0.008}& \msl{0.916}{0.017}& \msl{0.901}{0.029}& \msl{0.808}{0.025}& \msl{0.996}{0.000}& \msl{0.996}{0.001} \\
+\bottomrule
+\end{tabular}
+}
+\label{tab:set-exp-results-alpha0401}
+\end{table*}
